@@ -1,0 +1,15 @@
+frontend/node_modules/
+frontend/dist/
+backend/target/
+.m2/
+.npm-cache/
+.env
+.env.local
+.env.*
+!.env.example
+application-local.yml
+application-local.yaml
+application-local.properties
+*.log
+.idea/
+.vscode/

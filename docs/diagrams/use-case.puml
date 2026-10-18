@@ -1,0 +1,53 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor "Khách" as Guest
+actor "Phụ huynh" as Parent
+actor "Gia sư" as Tutor
+actor "Quản trị viên" as Admin
+rectangle "Website kết nối gia sư" {
+ usecase "UC-02 Đăng ký" as Register
+ usecase "UC-03 Đăng nhập" as Login
+ usecase "UC-04 Quản lý tài khoản cá nhân" as Account
+ usecase "UC-05 Tìm và xem gia sư" as Search
+ usecase "UC-06 Soạn hồ sơ và gửi duyệt" as Profile
+ usecase "UC-07 Duyệt hồ sơ" as Approve
+ usecase "UC-01 Gửi yêu cầu học" as Send
+ usecase "UC-08 Xem yêu cầu học" as Requests
+ usecase "UC-09 Hủy yêu cầu đang chờ" as CancelRequest
+ usecase "UC-10 Chấp nhận yêu cầu" as Accept
+ usecase "Tạo lớp học" as CreateClass
+ usecase "UC-11 Từ chối yêu cầu" as Reject
+ usecase "UC-12 Xem lớp học" as Classes
+ usecase "UC-13 Hoàn thành lớp" as Complete
+ usecase "UC-14 Hủy lớp" as CancelClass
+ usecase "UC-15 Đánh giá gia sư" as Review
+ usecase "UC-16 Quản lý tài khoản" as Manage
+ usecase "UC-17 Theo dõi kết nối" as Monitor
+}
+Guest -- Register
+Guest -- Login
+Guest -- Search
+Parent -- Account
+Tutor -- Account
+Admin -- Account
+Parent -- Search
+Tutor -- Search
+Parent -- Send
+Parent -- Requests
+Parent -- CancelRequest
+Parent -- Classes
+Parent -- Complete
+Parent -- CancelClass
+Parent -- Review
+Tutor -- Profile
+Tutor -- Requests
+Tutor -- Accept
+Tutor -- Reject
+Tutor -- Classes
+Tutor -- CancelClass
+Accept ..> CreateClass : <<include>>
+Admin -- Approve
+Admin -- Manage
+Admin -- Monitor
+@enduml
