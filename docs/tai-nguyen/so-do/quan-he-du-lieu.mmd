@@ -1,0 +1,97 @@
+erDiagram
+    USERS ||--o| TUTOR_PROFILES : has
+    TUTOR_PROFILES ||--o{ TUTOR_OFFERINGS : offers
+    SUBJECTS ||--o{ TUTOR_OFFERINGS : categorizes
+    TUTOR_PROFILES ||--o{ PROFILE_REVIEWS : reviewed_in
+    USERS ||--o{ PROFILE_REVIEWS : decides
+    USERS ||--o{ TUTORING_REQUESTS : parent_sends
+    TUTOR_PROFILES ||--o{ TUTORING_REQUESTS : receives
+    SUBJECTS ||--o{ TUTORING_REQUESTS : requested_subject
+    TUTORING_REQUESTS ||--o| TUTORING_CLASSES : becomes
+    USERS o|--o{ TUTORING_CLASSES : ends
+    TUTORING_CLASSES ||--o| REVIEWS : receives
+    USERS {
+        bigint id PK
+        varchar email UK
+        varchar password_hash
+        varchar full_name
+        varchar phone
+        varchar role
+        varchar status
+        timestamptz created_at
+        timestamptz updated_at
+    }
+    TUTOR_PROFILES {
+        bigint user_id PK,FK
+        text introduction
+        varchar education
+        int experience_years
+        boolean supports_online
+        boolean supports_offline
+        varchar teaching_area
+        varchar availability_note
+        varchar status
+        bigint version
+        timestamptz submitted_at
+        timestamptz updated_at
+    }
+    SUBJECTS {
+        bigint id PK
+        varchar name UK
+        boolean active
+    }
+    TUTOR_OFFERINGS {
+        bigint id PK
+        bigint tutor_id FK
+        bigint subject_id FK
+        int grade_level
+        int hourly_rate
+    }
+    PROFILE_REVIEWS {
+        bigint id PK
+        bigint tutor_id FK
+        bigint reviewer_id FK
+        varchar decision
+        varchar reason
+        jsonb profile_snapshot
+        timestamptz reviewed_at
+    }
+    TUTORING_REQUESTS {
+        bigint id PK
+        bigint parent_id FK
+        bigint tutor_id FK
+        bigint subject_id FK
+        varchar student_name
+        varchar student_name_normalized
+        int grade_level
+        varchar learning_goal
+        varchar learning_mode
+        varchar learning_area
+        varchar desired_schedule
+        int proposed_hourly_rate
+        date desired_start_date
+        varchar note
+        varchar status
+        varchar rejection_reason
+        bigint version
+        timestamptz created_at
+        timestamptz resolved_at
+    }
+    TUTORING_CLASSES {
+        bigint id PK
+        bigint request_id FK,UK
+        varchar status
+        bigint ended_by FK
+        varchar cancellation_reason
+        bigint version
+        timestamptz created_at
+        timestamptz ended_at
+    }
+    REVIEWS {
+        bigint id PK
+        bigint class_id FK,UK
+        int rating
+        varchar comment
+        timestamptz created_at
+    }
+
