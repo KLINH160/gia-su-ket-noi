@@ -10,9 +10,27 @@ permissions:
 
 jobs:
   backend:
-    name: Java API tests
+    name: Kiem thu Java va PostgreSQL
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: ci_test
+          POSTGRES_PASSWORD: ci_test_only
+          POSTGRES_DB: tutor_connect_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U ci_test -d tutor_connect_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 15
+    env:
+      TEST_DB_URL: jdbc:postgresql://127.0.0.1:5432/tutor_connect_test
+      TEST_DB_USERNAME: ci_test
+      TEST_DB_PASSWORD: ci_test_only
     defaults:
       run:
         working-directory: backend
@@ -26,11 +44,11 @@ jobs:
           java-version: '21'
           cache: maven
           cache-dependency-path: backend/pom.xml
-      - name: Test demo profile without database
-        run: mvn --batch-mode --no-transfer-progress test
+      - name: Kiem thu don vi va tich hop PostgreSQL
+        run: ./mvnw --batch-mode --no-transfer-progress -Ppostgres-it verify
 
   frontend:
-    name: React production build
+    name: Kiem thu va build React
     runs-on: ubuntu-latest
     timeout-minutes: 10
     defaults:
@@ -46,4 +64,5 @@ jobs:
           cache: npm
           cache-dependency-path: frontend/package-lock.json
       - run: npm ci
+      - run: npm run test:run
       - run: npm run build
