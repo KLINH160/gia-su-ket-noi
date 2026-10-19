@@ -3,14 +3,6 @@ spring:
     name: tutor-connect
   profiles:
     default: demo
-  jpa:
-    open-in-view: false
-    hibernate:
-      ddl-auto: validate
-    properties:
-      hibernate:
-        jdbc:
-          time_zone: UTC
 server:
   port: ${PORT:8080}
   address: ${SERVER_ADDRESS:127.0.0.1}

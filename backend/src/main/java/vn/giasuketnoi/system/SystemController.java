@@ -19,7 +19,7 @@ public class SystemController {
     public SystemStatus status() {
         // This is application liveness, not a database readiness probe.
         boolean demo = environment.acceptsProfiles(Profiles.of("demo"));
-        return new SystemStatus("Gia Sư Kết Nối", "UP", demo ? "demo" : "mysql",
+        return new SystemStatus("Gia Sư Kết Nối", "UP", demo ? "demo" : "postgres",
                 demo ? "DISABLED" : "NOT_CHECKED");
     }
 
