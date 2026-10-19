@@ -13,7 +13,7 @@ Mở terminal tại thư mục gốc chứa frontend/backend. Tất cả ví d�
 .\cong-cu\chay-backend.ps1
 ```
 
-Script dùng binary PostgreSQL đã cài, tạo cụm dữ liệu riêng trong `.local/postgres`, cổng 55432, chỉ lắng nghe 127.0.0.1. Không dùng database hệ thống ở cổng 5432. Tài khoản phát triển và mật khẩu ngẫu nhiên lưu ở `.local/postgres/ket-noi.json`, bị Git bỏ qua. Đây là tài khoản quản trị cụm phát triển, không dùng cấu hình này cho môi trường công cộng.
+Script `chay-backend.ps1` build JAR rồi chạy bằng Java để hỗ trợ đường dẫn có dấu; kiểm thử đầy đủ dùng tham số `-KiemThu`. Script PostgreSQL dùng binary PostgreSQL đã cài, tạo cụm dữ liệu riêng trong `.local/postgres`, cổng 55432, chỉ lắng nghe 127.0.0.1. Không dùng database hệ thống ở cổng 5432. Tài khoản phát triển và mật khẩu ngẫu nhiên lưu ở `.local/postgres/ket-noi.json`, bị Git bỏ qua. Đây là tài khoản quản trị cụm phát triển, không dùng cấu hình này cho môi trường công cộng.
 
 Nếu PostgreSQL không nằm ở vị trí mặc định:
 
